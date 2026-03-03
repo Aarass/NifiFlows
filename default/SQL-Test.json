@@ -1103,7 +1103,7 @@
       "properties" : {
         "Set Auto Commit" : "true",
         "Max Wait Time" : "0 seconds",
-        "SQL Query" : "SELECT * FROM customers",
+        "SQL Query" : "SELECT * FROM sellers\nWHERE seller_city = 'sao paulo'",
         "Database Connection Pooling Service" : "b74777ef-4a44-372c-abb5-34a361ad338a",
         "Default Decimal Scale" : "0",
         "Fetch Size" : "0",
@@ -1243,6 +1243,6 @@
   "snapshotMetadata" : {
     "author" : "admin",
     "flowIdentifier" : "SQL-Test",
-    "timestamp" : 1772569509810
+    "timestamp" : 1772569824519
   }
 }
