@@ -1,0 +1,11 @@
+{
+  "flow" : {
+    "createdTimestamp" : 1772659077498,
+    "description" : "",
+    "identifier" : "dimcustomer",
+    "lastModifiedTimestamp" : 1772659077498,
+    "name" : "dim_customer",
+    "versionCount" : 0
+  },
+  "latest" : false
+}
