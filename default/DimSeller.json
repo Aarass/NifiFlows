@@ -1,0 +1,11 @@
+{
+  "flow" : {
+    "createdTimestamp" : 1772755359577,
+    "description" : "",
+    "identifier" : "DimSeller",
+    "lastModifiedTimestamp" : 1772755359577,
+    "name" : "DimSeller",
+    "versionCount" : 0
+  },
+  "latest" : false
+}
