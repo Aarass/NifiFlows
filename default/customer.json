@@ -54,36 +54,6 @@
       "destination" : {
         "comments" : "",
         "groupId" : "flow-contents-group",
-        "id" : "b58798f2-019c-1000-8392-83b0e790de48",
-        "name" : "PutSQL",
-        "type" : "PROCESSOR"
-      },
-      "flowFileExpiration" : "0 sec",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "164d2f54-a550-3ab5-ba91-39f6b757d2a8",
-      "labelIndex" : 0,
-      "loadBalanceCompression" : "DO_NOT_COMPRESS",
-      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
-      "name" : "",
-      "partitioningAttribute" : "",
-      "prioritizers" : [ ],
-      "selectedRelationships" : [ "no_change", "unmatched" ],
-      "source" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "b58798ef-019c-1000-316a-8f02c34cb1cb",
-        "name" : "RouteOnAttribute",
-        "type" : "PROCESSOR"
-      },
-      "zIndex" : 13
-    }, {
-      "backPressureDataSizeThreshold" : "1 GB",
-      "backPressureObjectThreshold" : 10000,
-      "bends" : [ ],
-      "componentType" : "CONNECTION",
-      "destination" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
         "id" : "5d5f614b-b569-36f8-a62a-71d662fdd7a1",
         "name" : "UpdateAttribute",
         "type" : "PROCESSOR"
@@ -166,36 +136,6 @@
         "type" : "PROCESSOR"
       },
       "zIndex" : 2
-    }, {
-      "backPressureDataSizeThreshold" : "1 GB",
-      "backPressureObjectThreshold" : 10000,
-      "bends" : [ ],
-      "componentType" : "CONNECTION",
-      "destination" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "bab1bc5a-019c-1000-e3d7-df123e415ac7",
-        "name" : "LogAttribute",
-        "type" : "PROCESSOR"
-      },
-      "flowFileExpiration" : "0 sec",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "411c1c8f-92f1-3d5e-b932-301a0236386a",
-      "labelIndex" : 0,
-      "loadBalanceCompression" : "DO_NOT_COMPRESS",
-      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
-      "name" : "",
-      "partitioningAttribute" : "",
-      "prioritizers" : [ ],
-      "selectedRelationships" : [ "success" ],
-      "source" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "b58798f2-019c-1000-8392-83b0e790de48",
-        "name" : "PutSQL",
-        "type" : "PROCESSOR"
-      },
-      "zIndex" : 18
     }, {
       "backPressureDataSizeThreshold" : "1 GB",
       "backPressureObjectThreshold" : 10000,
@@ -406,6 +346,36 @@
         "type" : "PROCESSOR"
       },
       "zIndex" : 1
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "b58798f2-019c-1000-8392-83b0e790de48",
+        "name" : "PutSQL",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "f87cfb39-51b8-3e10-bd0d-028390de2975",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "no_change" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "b58798ef-019c-1000-316a-8f02c34cb1cb",
+        "name" : "RouteOnAttribute",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 18
     } ],
     "controllerServices" : [ {
       "bulletinLevel" : "WARN",
@@ -1149,19 +1119,19 @@
       },
       "properties" : {
         "Destination" : "flowfile-attribute",
-        "CustomerState" : "$.customer_state",
-        "CustomerCity" : "$.customer_city",
+        "CustomerState" : "$.CUSTOMER_STATE",
+        "CustomerCity" : "$.CUSTOMER_CITY",
         "Max String Length" : "20 MB",
         "Return Type" : "auto-detect",
         "Null Value Representation" : "empty string",
-        "CustomerID" : "$.customer_id",
-        "Gender" : "$.gender",
+        "CustomerID" : "$.CUSTOMER_ID",
+        "Gender" : "$.GENDER",
         "Path Not Found Behavior" : "ignore",
-        "Name" : "$.name",
-        "CustomerUniqueID" : "$.customer_unique_id",
-        "Phone" : "$.phone",
-        "CustomerZipCodePrefix" : "$.customer_zip_code_prefix",
-        "Age" : "$.age"
+        "Name" : "$.NAME",
+        "CustomerUniqueID" : "$.CUSTOMER_UNIQUE_ID",
+        "Phone" : "$.PHONE",
+        "CustomerZipCodePrefix" : "$.CUSTOMER_ZIP_CODE_PREFIX",
+        "Age" : "$.AGE"
       },
       "propertyDescriptors" : {
         "Destination" : {
@@ -1297,7 +1267,7 @@
       "properties" : {
         "Set Auto Commit" : "true",
         "Max Wait Time" : "0 seconds",
-        "SQL Query" : "SELECT\n  customer_sk AS pk_dim,\n  customer_unique_id AS customer_unique_id_r,\n  date_to,\n  is_current\nFROM dim_customer\nWHERE customer_unique_id = '${CustomerUniqueID}'\nAND is_current = 1\nAND date_to IS NULL",
+        "SQL Query" : "SELECT\n  CUSTOMER_SK AS PK_DIM,\n  CUSTOMER_UNIQUE_ID AS CUSTOMER_UNIQUE_ID_R,\n  CUSTOMER_ID AS CUSTOMER_ID_R,\n  DATE_TO,\n  IS_CURRENT\nFROM DIM_CUSTOMER\nWHERE CUSTOMER_UNIQUE_ID = '${CustomerUniqueID}'\nAND IS_CURRENT = 1\nAND DATE_TO IS NULL",
         "Database Connection Pooling Service" : "d76e2431-e27c-39d7-a8c5-853a10f5f4ce",
         "Default Decimal Scale" : "0",
         "Fetch Size" : "0",
@@ -1448,16 +1418,16 @@
         "y" : -8.0
       },
       "properties" : {
-        "IsCurrent" : "$[0].is_current",
-        "CustomerIDR" : "$[0].customer_id_r",
+        "IsCurrent" : "$[0].IS_CURRENT",
+        "CustomerIDR" : "$[0].CUSTOMER_ID_R",
         "Destination" : "flowfile-attribute",
         "CustomerSK" : "$[0].PK_DIM",
         "Max String Length" : "20 MB",
-        "CustomerUniqueIDR" : "$[0].customer_unique_id_r",
+        "CustomerUniqueIDR" : "$[0].CUSTOMER_UNIQUE_ID_R",
         "Return Type" : "auto-detect",
         "Null Value Representation" : "empty string",
         "Path Not Found Behavior" : "ignore",
-        "DateTo" : "$[0].date_to"
+        "DateTo" : "$[0].DATE_TO"
       },
       "propertyDescriptors" : {
         "IsCurrent" : {
@@ -1563,7 +1533,7 @@
         "y" : 688.0
       },
       "properties" : {
-        "SQL Statement" : "INSERT INTO dim_customer\n(\n  customer_id,\n  customer_unique_id,\n  name,\n  gender,\n  age,\n  age_group,\n  phone,\n  zip_code_prefix,\n  city,\n  state,\n  date_from,\n  date_to,\n  is_current\n)\nVALUES\n(\n  '${CustomerID_sql}',\n  '${CustomerUniqueID_sql}',\n  '${Name_sql}',\n  '${Gender_sql}',\n  ${Age_sql},\n  '${age_group}',\n  '${Phone_sql}',\n  '${Zip_sql}',\n  '${City_sql}',\n  '${State_sql}',\n  SYSDATE,\n  NULL,\n  1\n)",
+        "SQL Statement" : "INSERT INTO DIM_CUSTOMER\n(\n  CUSTOMER_ID,\n  CUSTOMER_UNIQUE_ID,\n  NAME,\n  GENDER,\n  AGE,\n  AGE_GROUP,\n  PHONE,\n  ZIP_CODE_PREFIX,\n  CITY,\n  STATE,\n  DATE_FROM,\n  DATE_TO,\n  IS_CURRENT\n)\nVALUES\n(\n  '${CustomerID_sql}',\n  '${CustomerUniqueID_sql}',\n  '${Name_sql}',\n  '${Gender_sql}',\n  ${Age_sql},\n  '${age_group}',\n  '${Phone_sql}',\n  '${Zip_sql}',\n  '${City_sql}',\n  '${State_sql}',\n  SYSDATE,\n  NULL,\n  1\n)",
         "Support Fragmented Transactions" : "false",
         "Database Session AutoCommit" : "false",
         "Batch Size" : "100",
@@ -1639,7 +1609,7 @@
       "type" : "org.apache.nifi.processors.standard.PutSQL",
       "yieldDuration" : "1 sec"
     }, {
-      "autoTerminatedRelationships" : [ ],
+      "autoTerminatedRelationships" : [ "unmatched" ],
       "backoffMechanism" : "PENALIZE_FLOWFILE",
       "bulletinLevel" : "WARN",
       "bundle" : {
@@ -1657,13 +1627,13 @@
       "name" : "RouteOnAttribute",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : 32.0,
-        "y" : -48.0
+        "x" : 24.0,
+        "y" : -40.0
       },
       "properties" : {
         "Routing Strategy" : "Route to Property name",
         "insert" : "${CustomerSK:isEmpty()}",
-        "no_change" : "${CustomerUniqueID:equals(${CustomerUniqueIDR})}"
+        "no_change" : "${CustomerUniqueID:equals(${CustomerUniqueIDR}):and(${CustomerID:equals(${CustomerIDR}):not()})}"
       },
       "propertyDescriptors" : {
         "Routing Strategy" : {
@@ -1775,11 +1745,11 @@
       "name" : "PutSQL",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : 600.0,
+        "x" : 592.0,
         "y" : 88.0
       },
       "properties" : {
-        "SQL Statement" : "UPDATE dim_customer\nSET\n  date_to = SYSDATE,\n  is_current = 0\nWHERE customer_sk = ${CustomerSK}",
+        "SQL Statement" : "UPDATE DIM_CUSTOMER\nSET\n  DATE_TO = SYSDATE,\n  IS_CURRENT = 0\nWHERE CUSTOMER_SK = ${CustomerSK}",
         "Support Fragmented Transactions" : "false",
         "Database Session AutoCommit" : "false",
         "Batch Size" : "100",
@@ -1855,117 +1825,6 @@
       "type" : "org.apache.nifi.processors.standard.PutSQL",
       "yieldDuration" : "1 sec"
     }, {
-      "autoTerminatedRelationships" : [ "success" ],
-      "backoffMechanism" : "PENALIZE_FLOWFILE",
-      "bulletinLevel" : "INFO",
-      "bundle" : {
-        "artifact" : "nifi-standard-nar",
-        "group" : "org.apache.nifi",
-        "version" : "2.7.2"
-      },
-      "comments" : "",
-      "componentType" : "PROCESSOR",
-      "concurrentlySchedulableTaskCount" : 1,
-      "executionNode" : "ALL",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "bab1bc5a-019c-1000-e3d7-df123e415ac7",
-      "maxBackoffPeriod" : "10 mins",
-      "name" : "LogAttribute",
-      "penaltyDuration" : "30 sec",
-      "position" : {
-        "x" : 672.0,
-        "y" : 400.0
-      },
-      "properties" : {
-        "Log FlowFile Properties" : "true",
-        "Log Level" : "info",
-        "Output Format" : "Line per Attribute",
-        "Log Payload" : "true",
-        "Character Set" : "UTF-8",
-        "Attributes to Log Regular Expression" : ".*"
-      },
-      "propertyDescriptors" : {
-        "Log FlowFile Properties" : {
-          "displayName" : "Log FlowFile Properties",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Log FlowFile Properties",
-          "sensitive" : false
-        },
-        "Log Level" : {
-          "displayName" : "Log Level",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Log Level",
-          "sensitive" : false
-        },
-        "Attributes to Ignore" : {
-          "displayName" : "Attributes to Ignore",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Attributes to Ignore",
-          "sensitive" : false
-        },
-        "Attributes to Log" : {
-          "displayName" : "Attributes to Log",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Attributes to Log",
-          "sensitive" : false
-        },
-        "Attributes to Ignore Regular Expression" : {
-          "displayName" : "Attributes to Ignore Regular Expression",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Attributes to Ignore Regular Expression",
-          "sensitive" : false
-        },
-        "Output Format" : {
-          "displayName" : "Output Format",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Output Format",
-          "sensitive" : false
-        },
-        "Log Payload" : {
-          "displayName" : "Log Payload",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Log Payload",
-          "sensitive" : false
-        },
-        "Log Prefix" : {
-          "displayName" : "Log Prefix",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Log Prefix",
-          "sensitive" : false
-        },
-        "Character Set" : {
-          "displayName" : "Character Set",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Character Set",
-          "sensitive" : false
-        },
-        "Attributes to Log Regular Expression" : {
-          "displayName" : "Attributes to Log Regular Expression",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Attributes to Log Regular Expression",
-          "sensitive" : false
-        }
-      },
-      "retriedRelationships" : [ ],
-      "retryCount" : 10,
-      "runDurationMillis" : 25,
-      "scheduledState" : "ENABLED",
-      "schedulingPeriod" : "0 sec",
-      "schedulingStrategy" : "TIMER_DRIVEN",
-      "style" : { },
-      "type" : "org.apache.nifi.processors.standard.LogAttribute",
-      "yieldDuration" : "1 sec"
-    }, {
       "autoTerminatedRelationships" : [ "failure" ],
       "backoffMechanism" : "PENALIZE_FLOWFILE",
       "bulletinLevel" : "WARN",
@@ -2036,6 +1895,6 @@
   "snapshotMetadata" : {
     "author" : "admin",
     "flowIdentifier" : "customer",
-    "timestamp" : 1772744887229
+    "timestamp" : 1772827357399
   }
 }
