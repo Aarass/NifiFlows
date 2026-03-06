@@ -114,6 +114,36 @@
       "destination" : {
         "comments" : "",
         "groupId" : "flow-contents-group",
+        "id" : "a2553b61-afd3-3082-ad56-3a1445753fce",
+        "name" : "PutSQL",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "849d98fd-f68c-3ea3-9d52-6c5db663bdcf",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "success" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "2063e9c3-0939-376c-a873-7699fc83e4f6",
+        "name" : "UpdateAttribute",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 9
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
         "id" : "db2e62f0-5970-3762-9a46-047b7db78155",
         "name" : "ExecuteSQL",
         "type" : "PROCESSOR"
@@ -166,36 +196,6 @@
         "type" : "PROCESSOR"
       },
       "zIndex" : 1
-    }, {
-      "backPressureDataSizeThreshold" : "1 GB",
-      "backPressureObjectThreshold" : 10000,
-      "bends" : [ ],
-      "componentType" : "CONNECTION",
-      "destination" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "657d1e65-eb1a-3a0e-a98e-2e7facb6c6f1",
-        "name" : "ExecuteSQL",
-        "type" : "PROCESSOR"
-      },
-      "flowFileExpiration" : "0 sec",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "bb3587fc-6252-3044-be68-34e44c8dc07e",
-      "labelIndex" : 0,
-      "loadBalanceCompression" : "DO_NOT_COMPRESS",
-      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
-      "name" : "",
-      "partitioningAttribute" : "",
-      "prioritizers" : [ ],
-      "selectedRelationships" : [ "success" ],
-      "source" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "2063e9c3-0939-376c-a873-7699fc83e4f6",
-        "name" : "UpdateAttribute",
-        "type" : "PROCESSOR"
-      },
-      "zIndex" : 10
     }, {
       "backPressureDataSizeThreshold" : "1 GB",
       "backPressureObjectThreshold" : 10000,
@@ -1074,8 +1074,8 @@
       "name" : "ExecuteSQL",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : 488.0,
-        "y" : -432.0
+        "x" : 384.0,
+        "y" : -504.0
       },
       "properties" : {
         "Set Auto Commit" : "true",
@@ -1266,6 +1266,104 @@
       "schedulingStrategy" : "TIMER_DRIVEN",
       "style" : { },
       "type" : "org.apache.nifi.processors.standard.ConvertRecord",
+      "yieldDuration" : "1 sec"
+    }, {
+      "autoTerminatedRelationships" : [ "failure", "retry", "success" ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-standard-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2.7.2"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "a2553b61-afd3-3082-ad56-3a1445753fce",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "PutSQL",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : 920.0,
+        "y" : -448.0
+      },
+      "properties" : {
+        "SQL Statement" : "INSERT INTO dim_date (\n  full_date,\n  year,\n  quarter,\n  month,\n  month_name,\n  day_of_month,\n  day_name,\n  is_weekend\n)\nVALUES (\n  TO_DATE('${FULLDATE}','YYYY-MM-DD'),\n  ${YEAR},\n  ${QUARTER},\n  ${MONTH},\n  '${MONTHNAME}',\n  ${DAYOFMONTH},\n  '${DAY_NAME}',\n  ${ISWEEKEND}\n)",
+        "Support Fragmented Transactions" : "false",
+        "Database Session AutoCommit" : "false",
+        "Batch Size" : "100",
+        "Obtain Generated Keys" : "false",
+        "Rollback On Failure" : "false",
+        "JDBC Connection Pool" : "d76e2431-e27c-39d7-a8c5-853a10f5f4ce"
+      },
+      "propertyDescriptors" : {
+        "SQL Statement" : {
+          "displayName" : "SQL Statement",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "SQL Statement",
+          "sensitive" : false
+        },
+        "Support Fragmented Transactions" : {
+          "displayName" : "Support Fragmented Transactions",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Support Fragmented Transactions",
+          "sensitive" : false
+        },
+        "Database Session AutoCommit" : {
+          "displayName" : "Database Session AutoCommit",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Database Session AutoCommit",
+          "sensitive" : false
+        },
+        "Transaction Timeout" : {
+          "displayName" : "Transaction Timeout",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Transaction Timeout",
+          "sensitive" : false
+        },
+        "Batch Size" : {
+          "displayName" : "Batch Size",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Batch Size",
+          "sensitive" : false
+        },
+        "Obtain Generated Keys" : {
+          "displayName" : "Obtain Generated Keys",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Obtain Generated Keys",
+          "sensitive" : false
+        },
+        "Rollback On Failure" : {
+          "displayName" : "Rollback On Failure",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Rollback On Failure",
+          "sensitive" : false
+        },
+        "JDBC Connection Pool" : {
+          "displayName" : "JDBC Connection Pool",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "JDBC Connection Pool",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 0,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.standard.PutSQL",
       "yieldDuration" : "1 sec"
     }, {
       "autoTerminatedRelationships" : [ "failure" ],
@@ -1761,6 +1859,6 @@
   "snapshotMetadata" : {
     "author" : "admin",
     "flowIdentifier" : "DimDateAleksa",
-    "timestamp" : 1772749662112
+    "timestamp" : 1772827375444
   }
 }
