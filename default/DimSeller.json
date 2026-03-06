@@ -122,36 +122,6 @@
       "destination" : {
         "comments" : "",
         "groupId" : "flow-contents-group",
-        "id" : "6f0a55cc-3c22-36ce-9f21-2dee6a9b6daa",
-        "name" : "LogAttribute",
-        "type" : "PROCESSOR"
-      },
-      "flowFileExpiration" : "0 sec",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "628c05d7-de5c-30e6-be9d-3c67e6810080",
-      "labelIndex" : 0,
-      "loadBalanceCompression" : "DO_NOT_COMPRESS",
-      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
-      "name" : "",
-      "partitioningAttribute" : "",
-      "prioritizers" : [ ],
-      "selectedRelationships" : [ "failure", "success" ],
-      "source" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "91aebfa3-4abc-3201-8a40-e02427a81f00",
-        "name" : "ExecuteSQL",
-        "type" : "PROCESSOR"
-      },
-      "zIndex" : 13
-    }, {
-      "backPressureDataSizeThreshold" : "1 GB",
-      "backPressureObjectThreshold" : 10000,
-      "bends" : [ ],
-      "componentType" : "CONNECTION",
-      "destination" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
         "id" : "a14b0d36-54ea-31c1-9731-e8476cc048e7",
         "name" : "SplitJson",
         "type" : "PROCESSOR"
@@ -234,36 +204,6 @@
         "type" : "PROCESSOR"
       },
       "zIndex" : 6
-    }, {
-      "backPressureDataSizeThreshold" : "1 GB",
-      "backPressureObjectThreshold" : 10000,
-      "bends" : [ ],
-      "componentType" : "CONNECTION",
-      "destination" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "6f0a55cc-3c22-36ce-9f21-2dee6a9b6daa",
-        "name" : "LogAttribute",
-        "type" : "PROCESSOR"
-      },
-      "flowFileExpiration" : "0 sec",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "9f2562d9-9917-33a6-8341-f2a316e3cb8b",
-      "labelIndex" : 0,
-      "loadBalanceCompression" : "DO_NOT_COMPRESS",
-      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
-      "name" : "",
-      "partitioningAttribute" : "",
-      "prioritizers" : [ ],
-      "selectedRelationships" : [ "failure", "success" ],
-      "source" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "5ff81092-d88e-330a-876b-9482abbfb1ad",
-        "name" : "ExecuteSQL",
-        "type" : "PROCESSOR"
-      },
-      "zIndex" : 12
     }, {
       "backPressureDataSizeThreshold" : "1 GB",
       "backPressureObjectThreshold" : 10000,
@@ -496,7 +436,7 @@
       "type" : "org.apache.nifi.processors.standard.EvaluateJsonPath",
       "yieldDuration" : "1 sec"
     }, {
-      "autoTerminatedRelationships" : [ ],
+      "autoTerminatedRelationships" : [ "failure", "success" ],
       "backoffMechanism" : "PENALIZE_FLOWFILE",
       "bulletinLevel" : "WARN",
       "bundle" : {
@@ -520,7 +460,7 @@
       "properties" : {
         "Set Auto Commit" : "true",
         "Max Wait Time" : "0 seconds",
-        "SQL Query" : "UPDATE DIM_SELLER\nSET DATE_TO = SYSDATE, IS_CURRENT = 0\nWHERE SELLER_ID = '${SellerID}' AND IS_CURRENT = 1",
+        "SQL Query" : "UPDATE DIM_SELLER\nSET DATE_TO = SYSDATE, IS_CURRENT = 0\nWHERE SELLER_SK = '${SellerSK_Prev}'",
         "Database Connection Pooling Service" : "0d8e570a-16ee-394a-8a89-05226a3080bd",
         "Default Decimal Scale" : "0",
         "Fetch Size" : "0",
@@ -708,117 +648,6 @@
       "type" : "org.apache.nifi.processors.standard.ConvertRecord",
       "yieldDuration" : "1 sec"
     }, {
-      "autoTerminatedRelationships" : [ "success" ],
-      "backoffMechanism" : "PENALIZE_FLOWFILE",
-      "bulletinLevel" : "WARN",
-      "bundle" : {
-        "artifact" : "nifi-standard-nar",
-        "group" : "org.apache.nifi",
-        "version" : "2.8.0"
-      },
-      "comments" : "",
-      "componentType" : "PROCESSOR",
-      "concurrentlySchedulableTaskCount" : 1,
-      "executionNode" : "ALL",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "6f0a55cc-3c22-36ce-9f21-2dee6a9b6daa",
-      "maxBackoffPeriod" : "10 mins",
-      "name" : "LogAttribute",
-      "penaltyDuration" : "30 sec",
-      "position" : {
-        "x" : -528.0,
-        "y" : 2096.0
-      },
-      "properties" : {
-        "Log FlowFile Properties" : "true",
-        "Log Level" : "info",
-        "Output Format" : "Line per Attribute",
-        "Log Payload" : "false",
-        "Character Set" : "UTF-8",
-        "Attributes to Log Regular Expression" : ".*"
-      },
-      "propertyDescriptors" : {
-        "Log FlowFile Properties" : {
-          "displayName" : "Log FlowFile Properties",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Log FlowFile Properties",
-          "sensitive" : false
-        },
-        "Log Level" : {
-          "displayName" : "Log Level",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Log Level",
-          "sensitive" : false
-        },
-        "Attributes to Ignore" : {
-          "displayName" : "Attributes to Ignore",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Attributes to Ignore",
-          "sensitive" : false
-        },
-        "Attributes to Log" : {
-          "displayName" : "Attributes to Log",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Attributes to Log",
-          "sensitive" : false
-        },
-        "Attributes to Ignore Regular Expression" : {
-          "displayName" : "Attributes to Ignore Regular Expression",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Attributes to Ignore Regular Expression",
-          "sensitive" : false
-        },
-        "Output Format" : {
-          "displayName" : "Output Format",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Output Format",
-          "sensitive" : false
-        },
-        "Log Payload" : {
-          "displayName" : "Log Payload",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Log Payload",
-          "sensitive" : false
-        },
-        "Log Prefix" : {
-          "displayName" : "Log Prefix",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Log Prefix",
-          "sensitive" : false
-        },
-        "Character Set" : {
-          "displayName" : "Character Set",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Character Set",
-          "sensitive" : false
-        },
-        "Attributes to Log Regular Expression" : {
-          "displayName" : "Attributes to Log Regular Expression",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Attributes to Log Regular Expression",
-          "sensitive" : false
-        }
-      },
-      "retriedRelationships" : [ ],
-      "retryCount" : 10,
-      "runDurationMillis" : 25,
-      "scheduledState" : "ENABLED",
-      "schedulingPeriod" : "0 sec",
-      "schedulingStrategy" : "TIMER_DRIVEN",
-      "style" : { },
-      "type" : "org.apache.nifi.processors.standard.LogAttribute",
-      "yieldDuration" : "1 sec"
-    }, {
       "autoTerminatedRelationships" : [ "failure" ],
       "backoffMechanism" : "PENALIZE_FLOWFILE",
       "bulletinLevel" : "WARN",
@@ -843,7 +672,7 @@
       "properties" : {
         "Set Auto Commit" : "true",
         "Max Wait Time" : "0 seconds",
-        "SQL Query" : "SELECT * FROM DIM_SELLER WHERE SELLER_ID = '${SellerID}'",
+        "SQL Query" : "SELECT * FROM DIM_SELLER WHERE DATE_TO is null and SELLER_ID = '${SellerID}'",
         "Database Connection Pooling Service" : "0d8e570a-16ee-394a-8a89-05226a3080bd",
         "Default Decimal Scale" : "0",
         "Fetch Size" : "0",
@@ -972,7 +801,7 @@
       "type" : "org.apache.nifi.processors.standard.ExecuteSQL",
       "yieldDuration" : "1 sec"
     }, {
-      "autoTerminatedRelationships" : [ ],
+      "autoTerminatedRelationships" : [ "failure", "success" ],
       "backoffMechanism" : "PENALIZE_FLOWFILE",
       "bulletinLevel" : "WARN",
       "bundle" : {
@@ -996,7 +825,7 @@
       "properties" : {
         "Set Auto Commit" : "true",
         "Max Wait Time" : "0 seconds",
-        "SQL Query" : "INSERT INTO DIM_SELLER (\n    SELLER_ID,\n    ZIP_CODE_PREFIX,\n    CITY,\n    STATE,\n    DATE_FROM,\n    DATE_TO,\n    IS_CURRENT\n) VALUES (\n    '${SellerID}',\n    '${SellerZipCodePrefix}',\n    '${SellerCity}',\n    '${SellerState}',\n    SYSDATE,\n    NULL,\n    1\n)",
+        "SQL Query" : "INSERT INTO DIM_SELLER (\n    SELLER_ID,\n    ZIP_CODE_PREFIX,\n    CITY,\n    STATE,\n    DATE_FROM,\n    DATE_TO,\n    IS_CURRENT\n) VALUES (\n    '${SellerID}',\n    '${SellerZipCodePrefix}',\n    '${SellerCity:replace(\"'\", \"''\")}',\n    '${SellerState}',\n    SYSDATE,\n    NULL,\n    1\n)",
         "Database Connection Pooling Service" : "0d8e570a-16ee-394a-8a89-05226a3080bd",
         "Default Decimal Scale" : "0",
         "Fetch Size" : "0",
@@ -1572,7 +1401,7 @@
       },
       "properties" : {
         "Routing Strategy" : "Route to Property name",
-        "insert" : "${SellerID_Prev:isEmpty()}"
+        "insert" : "${SellerSK_Prev:isEmpty()}"
       },
       "propertyDescriptors" : {
         "Routing Strategy" : {
@@ -1623,9 +1452,9 @@
       },
       "properties" : {
         "Destination" : "flowfile-attribute",
+        "SellerSK_Prev" : "$[0].SELLER_SK",
         "Max String Length" : "20 MB",
         "Return Type" : "auto-detect",
-        "SellerID_Prev" : "$[0].SELLER_ID",
         "Null Value Representation" : "empty string",
         "Path Not Found Behavior" : "ignore"
       },
@@ -1635,6 +1464,13 @@
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Destination",
+          "sensitive" : false
+        },
+        "SellerSK_Prev" : {
+          "displayName" : "SellerSK_Prev",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "SellerSK_Prev",
           "sensitive" : false
         },
         "Max String Length" : {
@@ -1649,13 +1485,6 @@
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Return Type",
-          "sensitive" : false
-        },
-        "SellerID_Prev" : {
-          "displayName" : "SellerID_Prev",
-          "dynamic" : true,
-          "identifiesControllerService" : false,
-          "name" : "SellerID_Prev",
           "sensitive" : false
         },
         "Null Value Representation" : {
@@ -1694,6 +1523,6 @@
   "snapshotMetadata" : {
     "author" : "admin",
     "flowIdentifier" : "DimSeller",
-    "timestamp" : 1772755360554
+    "timestamp" : 1772829645378
   }
 }
