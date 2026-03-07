@@ -694,7 +694,7 @@
       "zIndex" : 0
     } ],
     "maxConcurrentTasks" : 1,
-    "name" : "dim_customers",
+    "name" : "CustomerDim",
     "outputPorts" : [ ],
     "parameterContextName" : "Global",
     "position" : {
@@ -983,7 +983,7 @@
         "Set Auto Commit" : "true",
         "Max Wait Time" : "0 seconds",
         "SQL Query" : "select * from customers",
-        "Database Connection Pooling Service" : "#{OracleConnection}",
+        "Database Connection Pooling Service" : "#{SourceOracleConnection}",
         "Default Decimal Scale" : "0",
         "Fetch Size" : "0",
         "Output Batch Size" : "0",
@@ -1996,6 +1996,12 @@
         "provided" : false,
         "sensitive" : false,
         "value" : "0d8e570a-16ee-394a-8a89-05226a3080bd"
+      }, {
+        "description" : "",
+        "name" : "SourceOracleConnection",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "1679376a-7540-3b1f-97ad-b94886e2532b"
       } ]
     }
   },
@@ -2003,6 +2009,6 @@
   "snapshotMetadata" : {
     "author" : "admin",
     "flowIdentifier" : "dimcustomer",
-    "timestamp" : 1772838638121
+    "timestamp" : 1772892637117
   }
 }
