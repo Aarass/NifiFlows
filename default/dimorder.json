@@ -1,10 +1,5 @@
 {
-  "externalControllerServices" : {
-    "d76e2431-e27c-39d7-a8c5-853a10f5f4ce" : {
-      "identifier" : "d76e2431-e27c-39d7-a8c5-853a10f5f4ce",
-      "name" : "Oracle"
-    }
-  },
+  "externalControllerServices" : { },
   "flow" : {
     "createdTimestamp" : 1772755402499,
     "description" : "",
@@ -352,7 +347,7 @@
       "bundle" : {
         "artifact" : "nifi-record-serialization-services-nar",
         "group" : "org.apache.nifi",
-        "version" : "2.7.2"
+        "version" : "2.8.0"
       },
       "comments" : "",
       "componentType" : "CONTROLLER_SERVICE",
@@ -360,7 +355,7 @@
         "bundle" : {
           "artifact" : "nifi-standard-services-api-nar",
           "group" : "org.apache.nifi",
-          "version" : "2.7.2"
+          "version" : "2.8.0"
         },
         "type" : "org.apache.nifi.serialization.RecordReaderFactory"
       } ],
@@ -370,6 +365,7 @@
       "properties" : {
         "Schema Text" : "${avro.schema}",
         "Cache Size" : "1000",
+        "Fast Reader Enabled" : "true",
         "Schema Access Strategy" : "embedded-avro-schema",
         "Schema Name" : "${schema.name}"
       },
@@ -409,6 +405,13 @@
           "name" : "Cache Size",
           "sensitive" : false
         },
+        "Fast Reader Enabled" : {
+          "displayName" : "Fast Reader Enabled",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Fast Reader Enabled",
+          "sensitive" : false
+        },
         "Schema Registry" : {
           "displayName" : "Schema Registry",
           "dynamic" : false,
@@ -438,7 +441,7 @@
       "bundle" : {
         "artifact" : "nifi-record-serialization-services-nar",
         "group" : "org.apache.nifi",
-        "version" : "2.7.2"
+        "version" : "2.8.0"
       },
       "comments" : "",
       "componentType" : "CONTROLLER_SERVICE",
@@ -446,7 +449,7 @@
         "bundle" : {
           "artifact" : "nifi-standard-services-api-nar",
           "group" : "org.apache.nifi",
-          "version" : "2.7.2"
+          "version" : "2.8.0"
         },
         "type" : "org.apache.nifi.serialization.RecordSetWriterFactory"
       } ],
@@ -607,12 +610,7 @@
     "defaultBackPressureObjectThreshold" : 10000,
     "defaultFlowFileExpiration" : "0 sec",
     "executionEngine" : "INHERITED",
-    "externalControllerServiceReferences" : {
-      "d76e2431-e27c-39d7-a8c5-853a10f5f4ce" : {
-        "identifier" : "d76e2431-e27c-39d7-a8c5-853a10f5f4ce",
-        "name" : "Oracle"
-      }
-    },
+    "externalControllerServiceReferences" : { },
     "flowFileConcurrency" : "UNBOUNDED",
     "flowFileOutboundPolicy" : "STREAM_WHEN_AVAILABLE",
     "funnels" : [ ],
@@ -636,8 +634,9 @@
       "zIndex" : 0
     } ],
     "maxConcurrentTasks" : 1,
-    "name" : "dim_order",
+    "name" : "OrderDim",
     "outputPorts" : [ ],
+    "parameterContextName" : "Global",
     "position" : {
       "x" : 0.0,
       "y" : 0.0
@@ -650,7 +649,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2.7.2"
+        "version" : "2.8.0"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -672,7 +671,7 @@
         "Batch Size" : "100",
         "Obtain Generated Keys" : "false",
         "Rollback On Failure" : "false",
-        "JDBC Connection Pool" : "d76e2431-e27c-39d7-a8c5-853a10f5f4ce"
+        "JDBC Connection Pool" : "#{OracleConnection}"
       },
       "propertyDescriptors" : {
         "SQL Statement" : {
@@ -723,13 +722,6 @@
           "identifiesControllerService" : false,
           "name" : "Rollback On Failure",
           "sensitive" : false
-        },
-        "JDBC Connection Pool" : {
-          "displayName" : "JDBC Connection Pool",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "JDBC Connection Pool",
-          "sensitive" : false
         }
       },
       "retriedRelationships" : [ ],
@@ -748,7 +740,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2.7.2"
+        "version" : "2.8.0"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -839,7 +831,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2.7.2"
+        "version" : "2.8.0"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -898,7 +890,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2.7.2"
+        "version" : "2.8.0"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -910,14 +902,14 @@
       "name" : "ExecuteSQL",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -798.4416325636628,
-        "y" : -580.0000238927227
+        "x" : -800.0,
+        "y" : -584.0
       },
       "properties" : {
         "Set Auto Commit" : "true",
         "Max Wait Time" : "0 seconds",
         "SQL Query" : "select * from orders",
-        "Database Connection Pooling Service" : "d76e2431-e27c-39d7-a8c5-853a10f5f4ce",
+        "Database Connection Pooling Service" : "#{SourceOracleConnection}",
         "Default Decimal Scale" : "0",
         "Fetch Size" : "0",
         "Output Batch Size" : "0",
@@ -925,8 +917,8 @@
         "Compression Format" : "NONE",
         "Normalize Table and Column Names" : "false",
         "Default Decimal Precision" : "10",
-        "Content Output Strategy" : "EMPTY",
-        "Max Rows Per Flow File" : "0"
+        "Max Rows Per FlowFile" : "0",
+        "Content Output Strategy" : "EMPTY"
       },
       "propertyDescriptors" : {
         "Set Auto Commit" : {
@@ -948,13 +940,6 @@
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "SQL Query",
-          "sensitive" : false
-        },
-        "Database Connection Pooling Service" : {
-          "displayName" : "Database Connection Pooling Service",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "Database Connection Pooling Service",
           "sensitive" : false
         },
         "Default Decimal Scale" : {
@@ -1020,18 +1005,18 @@
           "name" : "Default Decimal Precision",
           "sensitive" : false
         },
+        "Max Rows Per FlowFile" : {
+          "displayName" : "Max Rows Per FlowFile",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Max Rows Per FlowFile",
+          "sensitive" : false
+        },
         "Content Output Strategy" : {
           "displayName" : "Content Output Strategy",
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Content Output Strategy",
-          "sensitive" : false
-        },
-        "Max Rows Per Flow File" : {
-          "displayName" : "Max Rows Per Flow File",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Max Rows Per Flow File",
           "sensitive" : false
         }
       },
@@ -1051,7 +1036,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2.7.2"
+        "version" : "2.8.0"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -1068,8 +1053,8 @@
       },
       "properties" : {
         "Include Zero Record FlowFiles" : "true",
-        "Record Writer" : "627dacd6-209f-31e6-9a25-bf97d2a66ea3",
-        "Record Reader" : "1da89ce2-b6ae-312e-af4d-2794fd655ebc"
+        "Record Writer" : "#{JsonRecordSetWriter}",
+        "Record Reader" : "#{AvroReader}"
       },
       "propertyDescriptors" : {
         "Include Zero Record FlowFiles" : {
@@ -1077,20 +1062,6 @@
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Include Zero Record FlowFiles",
-          "sensitive" : false
-        },
-        "Record Writer" : {
-          "displayName" : "Record Writer",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "Record Writer",
-          "sensitive" : false
-        },
-        "Record Reader" : {
-          "displayName" : "Record Reader",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "Record Reader",
           "sensitive" : false
         }
       },
@@ -1110,7 +1081,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2.7.2"
+        "version" : "2.8.0"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -1129,7 +1100,7 @@
         "Set Auto Commit" : "true",
         "Max Wait Time" : "0 seconds",
         "SQL Query" : "SELECT ORDER_SK, ORDER_ID AS ORDER_ID_R\nFROM DIM_ORDER\nWHERE ORDER_ID = '${ORDER_ID}'",
-        "Database Connection Pooling Service" : "d76e2431-e27c-39d7-a8c5-853a10f5f4ce",
+        "Database Connection Pooling Service" : "#{OracleConnection}",
         "Default Decimal Scale" : "0",
         "Fetch Size" : "0",
         "Output Batch Size" : "0",
@@ -1137,8 +1108,8 @@
         "Compression Format" : "NONE",
         "Normalize Table and Column Names" : "false",
         "Default Decimal Precision" : "10",
-        "Content Output Strategy" : "EMPTY",
-        "Max Rows Per Flow File" : "0"
+        "Max Rows Per FlowFile" : "0",
+        "Content Output Strategy" : "EMPTY"
       },
       "propertyDescriptors" : {
         "Set Auto Commit" : {
@@ -1160,13 +1131,6 @@
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "SQL Query",
-          "sensitive" : false
-        },
-        "Database Connection Pooling Service" : {
-          "displayName" : "Database Connection Pooling Service",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "Database Connection Pooling Service",
           "sensitive" : false
         },
         "Default Decimal Scale" : {
@@ -1232,18 +1196,18 @@
           "name" : "Default Decimal Precision",
           "sensitive" : false
         },
+        "Max Rows Per FlowFile" : {
+          "displayName" : "Max Rows Per FlowFile",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Max Rows Per FlowFile",
+          "sensitive" : false
+        },
         "Content Output Strategy" : {
           "displayName" : "Content Output Strategy",
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Content Output Strategy",
-          "sensitive" : false
-        },
-        "Max Rows Per Flow File" : {
-          "displayName" : "Max Rows Per Flow File",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Max Rows Per Flow File",
           "sensitive" : false
         }
       },
@@ -1263,7 +1227,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2.7.2"
+        "version" : "2.8.0"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -1402,7 +1366,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2.7.2"
+        "version" : "2.8.0"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -1461,7 +1425,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2.7.2"
+        "version" : "2.8.0"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -1478,8 +1442,8 @@
       },
       "properties" : {
         "Include Zero Record FlowFiles" : "true",
-        "Record Writer" : "627dacd6-209f-31e6-9a25-bf97d2a66ea3",
-        "Record Reader" : "1da89ce2-b6ae-312e-af4d-2794fd655ebc"
+        "Record Writer" : "#{JsonRecordSetWriter}",
+        "Record Reader" : "#{AvroReader}"
       },
       "propertyDescriptors" : {
         "Include Zero Record FlowFiles" : {
@@ -1487,20 +1451,6 @@
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Include Zero Record FlowFiles",
-          "sensitive" : false
-        },
-        "Record Writer" : {
-          "displayName" : "Record Writer",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "Record Writer",
-          "sensitive" : false
-        },
-        "Record Reader" : {
-          "displayName" : "Record Reader",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "Record Reader",
           "sensitive" : false
         }
       },
@@ -1520,7 +1470,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2.7.2"
+        "version" : "2.8.0"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -1635,7 +1585,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2.7.2"
+        "version" : "2.8.0"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -1654,7 +1604,7 @@
         "Set Auto Commit" : "true",
         "Max Wait Time" : "0 seconds",
         "SQL Query" : "SELECT\n  (SELECT DATE_SK FROM DIM_DATE\n    WHERE FULL_DATE = TO_DATE(SUBSTR('${PURCHASE_DATE}', 1, 10), 'YYYY-MM-DD')\n  ) AS PURCHASE_DATE_KEY,\n\n  (SELECT DATE_SK FROM DIM_DATE\n    WHERE FULL_DATE = TO_DATE(SUBSTR('${APPROVED_DATE}', 1, 10), 'YYYY-MM-DD')\n  ) AS APPROVED_DATE_KEY,\n\n  (SELECT DATE_SK FROM DIM_DATE\n    WHERE FULL_DATE = TO_DATE(SUBSTR('${CARRIER_DATE}', 1, 10), 'YYYY-MM-DD')\n  ) AS CARRIER_DATE_KEY,\n\n  (SELECT DATE_SK FROM DIM_DATE\n    WHERE FULL_DATE = TO_DATE(SUBSTR('${DELIVERED_DATE}', 1, 10), 'YYYY-MM-DD')\n  ) AS DELIVERED_DATE_KEY,\n\n  (SELECT DATE_SK FROM DIM_DATE\n    WHERE FULL_DATE = TO_DATE(SUBSTR('${ESTIMATED_DATE}', 1, 10), 'YYYY-MM-DD')\n  ) AS ESTIMATED_DATE_KEY\nFROM DUAL",
-        "Database Connection Pooling Service" : "d76e2431-e27c-39d7-a8c5-853a10f5f4ce",
+        "Database Connection Pooling Service" : "#{OracleConnection}",
         "Default Decimal Scale" : "0",
         "Fetch Size" : "0",
         "Output Batch Size" : "0",
@@ -1662,8 +1612,8 @@
         "Compression Format" : "NONE",
         "Normalize Table and Column Names" : "false",
         "Default Decimal Precision" : "10",
-        "Content Output Strategy" : "EMPTY",
-        "Max Rows Per Flow File" : "0"
+        "Max Rows Per FlowFile" : "0",
+        "Content Output Strategy" : "EMPTY"
       },
       "propertyDescriptors" : {
         "Set Auto Commit" : {
@@ -1685,13 +1635,6 @@
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "SQL Query",
-          "sensitive" : false
-        },
-        "Database Connection Pooling Service" : {
-          "displayName" : "Database Connection Pooling Service",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "Database Connection Pooling Service",
           "sensitive" : false
         },
         "Default Decimal Scale" : {
@@ -1757,18 +1700,18 @@
           "name" : "Default Decimal Precision",
           "sensitive" : false
         },
+        "Max Rows Per FlowFile" : {
+          "displayName" : "Max Rows Per FlowFile",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Max Rows Per FlowFile",
+          "sensitive" : false
+        },
         "Content Output Strategy" : {
           "displayName" : "Content Output Strategy",
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Content Output Strategy",
-          "sensitive" : false
-        },
-        "Max Rows Per Flow File" : {
-          "displayName" : "Max Rows Per Flow File",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Max Rows Per Flow File",
           "sensitive" : false
         }
       },
@@ -1788,7 +1731,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2.7.2"
+        "version" : "2.8.0"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -1805,8 +1748,8 @@
       },
       "properties" : {
         "Include Zero Record FlowFiles" : "true",
-        "Record Writer" : "627dacd6-209f-31e6-9a25-bf97d2a66ea3",
-        "Record Reader" : "1da89ce2-b6ae-312e-af4d-2794fd655ebc"
+        "Record Writer" : "#{JsonRecordSetWriter}",
+        "Record Reader" : "#{AvroReader}"
       },
       "propertyDescriptors" : {
         "Include Zero Record FlowFiles" : {
@@ -1814,20 +1757,6 @@
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Include Zero Record FlowFiles",
-          "sensitive" : false
-        },
-        "Record Writer" : {
-          "displayName" : "Record Writer",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "Record Writer",
-          "sensitive" : false
-        },
-        "Record Reader" : {
-          "displayName" : "Record Reader",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "Record Reader",
           "sensitive" : false
         }
       },
@@ -1847,11 +1776,49 @@
   },
   "flowEncodingVersion" : "1.0",
   "latest" : false,
-  "parameterContexts" : { },
+  "parameterContexts" : {
+    "Global" : {
+      "componentType" : "PARAMETER_CONTEXT",
+      "description" : "",
+      "inheritedParameterContexts" : [ ],
+      "name" : "Global",
+      "parameters" : [ {
+        "description" : "",
+        "name" : "AvroReader",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "d2de2f55-68b2-34f6-b771-0599d51cfbdc"
+      }, {
+        "description" : "",
+        "name" : "CSVReader",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "d94eb79c-44fc-390e-9e9c-67e12a4e5f4a"
+      }, {
+        "description" : "",
+        "name" : "JsonRecordSetWriter",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "f822a14f-06b4-3560-9764-dae39550ad33"
+      }, {
+        "description" : "",
+        "name" : "OracleConnection",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "0d8e570a-16ee-394a-8a89-05226a3080bd"
+      }, {
+        "description" : "",
+        "name" : "SourceOracleConnection",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "1679376a-7540-3b1f-97ad-b94886e2532b"
+      } ]
+    }
+  },
   "parameterProviders" : { },
   "snapshotMetadata" : {
     "author" : "admin",
     "flowIdentifier" : "dimorder",
-    "timestamp" : 1772755403622
+    "timestamp" : 1772901642203
   }
 }
