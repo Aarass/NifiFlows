@@ -848,8 +848,8 @@
       },
       "properties" : {
         "Routing Strategy" : "Route to Property name",
-        "insert" : "${ORDER_SK:isEmpty()}",
-        "no_change" : "${ORDER_ID:equals(${ORDER_ID_R})}"
+        "insert" : "${order_sk:isEmpty()}",
+        "no_change" : "${ORDER_ID:equals(${order_id_r})}"
       },
       "propertyDescriptors" : {
         "Routing Strategy" : {
@@ -1819,6 +1819,6 @@
   "snapshotMetadata" : {
     "author" : "admin",
     "flowIdentifier" : "dimorder",
-    "timestamp" : 1772901642203
+    "timestamp" : 1772987295650
   }
 }
