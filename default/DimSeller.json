@@ -67,7 +67,7 @@
       "name" : "",
       "partitioningAttribute" : "",
       "prioritizers" : [ ],
-      "selectedRelationships" : [ "insert", "unmatched" ],
+      "selectedRelationships" : [ "insert" ],
       "source" : {
         "comments" : "",
         "groupId" : "flow-contents-group",
@@ -196,36 +196,6 @@
         "type" : "PROCESSOR"
       },
       "zIndex" : 6
-    }, {
-      "backPressureDataSizeThreshold" : "1 GB",
-      "backPressureObjectThreshold" : 10000,
-      "bends" : [ ],
-      "componentType" : "CONNECTION",
-      "destination" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "c5698bd5-019c-1000-b3de-8cada81c79c9",
-        "name" : "PutSQL",
-        "type" : "PROCESSOR"
-      },
-      "flowFileExpiration" : "0 sec",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "993f48d6-3c23-3d32-9c86-b5a8f1af6e15",
-      "labelIndex" : 0,
-      "loadBalanceCompression" : "DO_NOT_COMPRESS",
-      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
-      "name" : "",
-      "partitioningAttribute" : "",
-      "prioritizers" : [ ],
-      "selectedRelationships" : [ "unmatched" ],
-      "source" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "c02af6a7-019c-1000-0675-f70013dab950",
-        "name" : "RouteOnAttribute",
-        "type" : "PROCESSOR"
-      },
-      "zIndex" : 10
     }, {
       "backPressureDataSizeThreshold" : "1 GB",
       "backPressureObjectThreshold" : 10000,
@@ -490,7 +460,7 @@
       "properties" : {
         "Set Auto Commit" : "true",
         "Max Wait Time" : "0 seconds",
-        "SQL Query" : "SELECT * FROM DIM_SELLER WHERE DATE_TO is null and SELLER_ID = '${SellerID}'",
+        "SQL Query" : "SELECT * FROM DIM_SELLER WHERE SELLER_ID = '${SellerID}'",
         "Database Connection Pooling Service" : "0d8e570a-16ee-394a-8a89-05226a3080bd",
         "Default Decimal Scale" : "0",
         "Fetch Size" : "0",
@@ -1022,7 +992,7 @@
       "type" : "org.apache.nifi.processors.standard.ConvertRecord",
       "yieldDuration" : "1 sec"
     }, {
-      "autoTerminatedRelationships" : [ ],
+      "autoTerminatedRelationships" : [ "unmatched" ],
       "backoffMechanism" : "PENALIZE_FLOWFILE",
       "bulletinLevel" : "WARN",
       "bundle" : {
@@ -1169,114 +1139,16 @@
       "concurrentlySchedulableTaskCount" : 1,
       "executionNode" : "ALL",
       "groupIdentifier" : "flow-contents-group",
-      "identifier" : "c5698bd5-019c-1000-b3de-8cada81c79c9",
-      "maxBackoffPeriod" : "10 mins",
-      "name" : "PutSQL",
-      "penaltyDuration" : "30 sec",
-      "position" : {
-        "x" : -160.0,
-        "y" : 1920.0
-      },
-      "properties" : {
-        "SQL Statement" : "UPDATE DIM_SELLER\nSET DATE_TO = SYSDATE, IS_CURRENT = 0\nWHERE SELLER_SK = '${SellerSK_Prev}'",
-        "Support Fragmented Transactions" : "false",
-        "Database Session AutoCommit" : "false",
-        "Batch Size" : "100",
-        "Obtain Generated Keys" : "false",
-        "Rollback On Failure" : "false",
-        "JDBC Connection Pool" : "0d8e570a-16ee-394a-8a89-05226a3080bd"
-      },
-      "propertyDescriptors" : {
-        "SQL Statement" : {
-          "displayName" : "SQL Statement",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "SQL Statement",
-          "sensitive" : false
-        },
-        "Support Fragmented Transactions" : {
-          "displayName" : "Support Fragmented Transactions",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Support Fragmented Transactions",
-          "sensitive" : false
-        },
-        "Database Session AutoCommit" : {
-          "displayName" : "Database Session AutoCommit",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Database Session AutoCommit",
-          "sensitive" : false
-        },
-        "Transaction Timeout" : {
-          "displayName" : "Transaction Timeout",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Transaction Timeout",
-          "sensitive" : false
-        },
-        "Batch Size" : {
-          "displayName" : "Batch Size",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Batch Size",
-          "sensitive" : false
-        },
-        "Obtain Generated Keys" : {
-          "displayName" : "Obtain Generated Keys",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Obtain Generated Keys",
-          "sensitive" : false
-        },
-        "Rollback On Failure" : {
-          "displayName" : "Rollback On Failure",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Rollback On Failure",
-          "sensitive" : false
-        },
-        "JDBC Connection Pool" : {
-          "displayName" : "JDBC Connection Pool",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "JDBC Connection Pool",
-          "sensitive" : false
-        }
-      },
-      "retriedRelationships" : [ ],
-      "retryCount" : 10,
-      "runDurationMillis" : 0,
-      "scheduledState" : "ENABLED",
-      "schedulingPeriod" : "0 sec",
-      "schedulingStrategy" : "TIMER_DRIVEN",
-      "style" : { },
-      "type" : "org.apache.nifi.processors.standard.PutSQL",
-      "yieldDuration" : "1 sec"
-    }, {
-      "autoTerminatedRelationships" : [ "failure", "retry", "success" ],
-      "backoffMechanism" : "PENALIZE_FLOWFILE",
-      "bulletinLevel" : "WARN",
-      "bundle" : {
-        "artifact" : "nifi-standard-nar",
-        "group" : "org.apache.nifi",
-        "version" : "2.8.0"
-      },
-      "comments" : "",
-      "componentType" : "PROCESSOR",
-      "concurrentlySchedulableTaskCount" : 1,
-      "executionNode" : "ALL",
-      "groupIdentifier" : "flow-contents-group",
       "identifier" : "cba7007b-efe3-3e97-9719-29da27e7619a",
       "maxBackoffPeriod" : "10 mins",
       "name" : "PutSQL",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -776.0,
-        "y" : 1920.0
+        "x" : -488.0,
+        "y" : 1680.0
       },
       "properties" : {
-        "SQL Statement" : "INSERT INTO DIM_SELLER (\n    SELLER_ID,\n    ZIP_CODE_PREFIX,\n    CITY,\n    STATE,\n    DATE_FROM,\n    DATE_TO,\n    IS_CURRENT\n) VALUES (\n    '${SellerID}',\n    '${SellerZipCodePrefix}',\n    '${SellerCity:replace(\"'\", \"''\")}',\n    '${SellerState}',\n    SYSDATE,\n    NULL,\n    1\n)",
+        "SQL Statement" : "INSERT INTO DIM_SELLER (\n    SELLER_ID,\n    ZIP_CODE_PREFIX,\n    CITY,\n    STATE\n) VALUES (\n    '${SellerID}',\n    '${SellerZipCodePrefix}',\n    '${SellerCity:replace(\"'\", \"''\")}',\n    '${SellerState}'\n)",
         "Support Fragmented Transactions" : "false",
         "Database Session AutoCommit" : "false",
         "Batch Size" : "100",
@@ -1401,6 +1273,6 @@
   "snapshotMetadata" : {
     "author" : "admin",
     "flowIdentifier" : "DimSeller",
-    "timestamp" : 1772892567500
+    "timestamp" : 1773006867861
   }
 }
