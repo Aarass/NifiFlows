@@ -169,6 +169,36 @@
       "destination" : {
         "comments" : "",
         "groupId" : "flow-contents-group",
+        "id" : "cdb88008-45b8-32dc-b47a-ecaf05678d45",
+        "name" : "PutSQL",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "a5e2bb61-446e-3d09-b1e7-d344901d5861",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "unmatched" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "cf5cc5f8-019c-1000-58a0-e94d0a1c48d8",
+        "name" : "RouteOnAttribute",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 12
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
         "id" : "a60164ca-53e2-30d8-8915-b14f86a83511",
         "name" : "ConvertRecord",
         "type" : "PROCESSOR"
@@ -229,8 +259,8 @@
       "destination" : {
         "comments" : "",
         "groupId" : "flow-contents-group",
-        "id" : "cdb88008-45b8-32dc-b47a-ecaf05678d45",
-        "name" : "PutSQL",
+        "id" : "cf5cc5f8-019c-1000-58a0-e94d0a1c48d8",
+        "name" : "RouteOnAttribute",
         "type" : "PROCESSOR"
       },
       "flowFileExpiration" : "0 sec",
@@ -1139,8 +1169,8 @@
       "name" : "PutSQL",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : 224.0,
-        "y" : -440.0
+        "x" : 216.0,
+        "y" : -608.0
       },
       "properties" : {
         "SQL Statement" : "INSERT INTO DIM_PRODUCT (\n    PRODUCT_ID, \n    PRODUCT_CATEGORY_NAME, \n    PRODUCT_CATEGORY_NAME_ENGLISH, \n    PRODUCT_WEIGHT_G, \n    PRODUCT_LENGTH_CM, \n    PRODUCT_HEIGHT_CM, \n    PRODUCT_WIDTH_CM\n) \nVALUES (\n    '${PRODUCT_ID}', \n    '${PRODUCT_CATEGORY_NAME}', \n    '${PRODUCT_CATEGORY_NAME_ENGLISH}', \n    ${PRODUCT_WEIGHT_G}, \n    ${PRODUCT_LENGTH_CM}, \n    ${PRODUCT_HEIGHT_CM}, \n    ${PRODUCT_WIDTH_CM}\n)",
@@ -1210,6 +1240,57 @@
       "schedulingStrategy" : "TIMER_DRIVEN",
       "style" : { },
       "type" : "org.apache.nifi.processors.standard.PutSQL",
+      "yieldDuration" : "1 sec"
+    }, {
+      "autoTerminatedRelationships" : [ "empty" ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-standard-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2.8.0"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "cf5cc5f8-019c-1000-58a0-e94d0a1c48d8",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "RouteOnAttribute",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : 216.0,
+        "y" : -400.0
+      },
+      "properties" : {
+        "Routing Strategy" : "Route to Property name",
+        "empty" : "${PRODUCT_ID:isEmpty():or(\n${PRODUCT_CATEGORY_NAME:isEmpty()}):or(\n${PRODUCT_CATEGORY_NAME_ENGLISH:isEmpty()}):or(\n${PRODUCT_WEIGHT_G:isEmpty()}):or(\n${PRODUCT_LENGTH_CM:isEmpty()}):or(\n${PRODUCT_HEIGHT_CM:isEmpty()}):or(\n${PRODUCT_WIDTH_CM:isEmpty()})}"
+      },
+      "propertyDescriptors" : {
+        "Routing Strategy" : {
+          "displayName" : "Routing Strategy",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Routing Strategy",
+          "sensitive" : false
+        },
+        "empty" : {
+          "displayName" : "empty",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "empty",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 25,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.standard.RouteOnAttribute",
       "yieldDuration" : "1 sec"
     }, {
       "autoTerminatedRelationships" : [ "failure" ],
@@ -1407,6 +1488,6 @@
   "snapshotMetadata" : {
     "author" : "admin",
     "flowIdentifier" : "DimProduct",
-    "timestamp" : 1773005346948
+    "timestamp" : 1773006271483
   }
 }
