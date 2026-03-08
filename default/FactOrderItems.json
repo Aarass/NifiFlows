@@ -729,7 +729,7 @@
       "penaltyDuration" : "30 sec",
       "position" : {
         "x" : -192.0,
-        "y" : 824.0
+        "y" : 832.0
       },
       "properties" : {
         "Max String Length" : "20 MB",
@@ -1517,6 +1517,6 @@
   "snapshotMetadata" : {
     "author" : "admin",
     "flowIdentifier" : "FactOrderItems",
-    "timestamp" : 1772998936364
+    "timestamp" : 1773007001590
   }
 }
