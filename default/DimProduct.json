@@ -560,7 +560,7 @@
       },
       "properties" : {
         "Include Zero Record FlowFiles" : "true",
-        "Record Writer" : "#{AvroReader}",
+        "Record Writer" : "#{JsonRecordSetWriter}",
         "Record Reader" : "#{AvroReader}"
       },
       "propertyDescriptors" : {
@@ -1407,6 +1407,6 @@
   "snapshotMetadata" : {
     "author" : "admin",
     "flowIdentifier" : "DimProduct",
-    "timestamp" : 1772892609956
+    "timestamp" : 1773005346948
   }
 }
