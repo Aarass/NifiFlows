@@ -62,7 +62,7 @@
       "name" : "",
       "partitioningAttribute" : "",
       "prioritizers" : [ ],
-      "selectedRelationships" : [ "no_change", "unmatched" ],
+      "selectedRelationships" : [ "no_change" ],
       "source" : {
         "comments" : "",
         "groupId" : "flow-contents-group",
@@ -1275,7 +1275,7 @@
       "properties" : {
         "Set Auto Commit" : "true",
         "Max Wait Time" : "0 seconds",
-        "SQL Query" : "SELECT customer_sk AS pk_dim, customer_unique_id AS customer_unique_id_r, date_to, is_current\nFROM dim_customer\nWHERE customer_unique_id = '${CustomerUniqueID}'\nAND is_current = 1\nAND date_to IS NULL",
+        "SQL Query" : "SELECT\n  CUSTOMER_SK AS PK_DIM,\n  CUSTOMER_UNIQUE_ID AS CUSTOMER_UNIQUE_ID_R,\n  CUSTOMER_ID AS CUSTOMER_ID_R,\n  DATE_TO,\n  IS_CURRENT\nFROM DIM_CUSTOMER\nWHERE CUSTOMER_UNIQUE_ID = '${CustomerUniqueID}'\nAND IS_CURRENT = 1\nAND DATE_TO IS NULL",
         "Database Connection Pooling Service" : "#{OracleConnection}",
         "Default Decimal Scale" : "0",
         "Fetch Size" : "0",
@@ -1419,15 +1419,16 @@
         "y" : -8.0
       },
       "properties" : {
-        "IsCurrent" : "$.is_current",
+        "IsCurrent" : "$[0].IS_CURRENT",
+        "CustomerIDR" : "$[0].CUSTOMER_ID_R",
         "Destination" : "flowfile-attribute",
-        "CustomerSK" : "$.pk_dim",
+        "CustomerSK" : "$[0].PK_DIM",
         "Max String Length" : "20 MB",
-        "CustomerUniqueIDR" : "$.customer_unique_id_r",
+        "CustomerUniqueIDR" : "$[0].CUSTOMER_UNIQUE_ID_R",
         "Return Type" : "auto-detect",
         "Null Value Representation" : "empty string",
         "Path Not Found Behavior" : "ignore",
-        "DateTo" : "$.date_to"
+        "DateTo" : "$[0].DATE_TO"
       },
       "propertyDescriptors" : {
         "IsCurrent" : {
@@ -1435,6 +1436,13 @@
           "dynamic" : true,
           "identifiesControllerService" : false,
           "name" : "IsCurrent",
+          "sensitive" : false
+        },
+        "CustomerIDR" : {
+          "displayName" : "CustomerIDR",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "CustomerIDR",
           "sensitive" : false
         },
         "Destination" : {
@@ -1595,7 +1603,7 @@
       "type" : "org.apache.nifi.processors.standard.PutSQL",
       "yieldDuration" : "1 sec"
     }, {
-      "autoTerminatedRelationships" : [ ],
+      "autoTerminatedRelationships" : [ "unmatched" ],
       "backoffMechanism" : "PENALIZE_FLOWFILE",
       "bulletinLevel" : "WARN",
       "bundle" : {
@@ -1619,7 +1627,7 @@
       "properties" : {
         "Routing Strategy" : "Route to Property name",
         "insert" : "${CustomerSK:isEmpty()}",
-        "no_change" : "${CustomerUniqueID:equals(${CustomerUniqueIDR})}"
+        "no_change" : "${CustomerUniqueID:equals(${CustomerUniqueIDR}):and(${CustomerID:equals(${CustomerIDR}):not()})}"
       },
       "propertyDescriptors" : {
         "Routing Strategy" : {
@@ -2009,6 +2017,6 @@
   "snapshotMetadata" : {
     "author" : "admin",
     "flowIdentifier" : "dimcustomer",
-    "timestamp" : 1772892637117
+    "timestamp" : 1773006196539
   }
 }
